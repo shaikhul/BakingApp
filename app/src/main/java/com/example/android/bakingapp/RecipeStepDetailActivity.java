@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -17,10 +16,15 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import timber.log.Timber;
+
 public class RecipeStepDetailActivity extends AppCompatActivity {
 
-    private TextView description;
-    private SimpleExoPlayerView playerView;
+    @BindView(R.id.description_text_view) TextView description;
+    @BindView(R.id.exo_player_view) SimpleExoPlayerView playerView;
+
     private SimpleExoPlayer exoPlayer;
 
     @Override
@@ -28,10 +32,11 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_step_detail);
 
-        playerView = (SimpleExoPlayerView) findViewById(R.id.exo_player_view);
-        description = (TextView) findViewById(R.id.description_text_view);
+        ButterKnife.bind(this);
+
         description.setText("2. Whisk the graham cracker crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed.");
 
+        Timber.d("initializing exo player");
         initializePlayer();
     }
 
@@ -42,7 +47,9 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
 
         playerView.setPlayer(exoPlayer);
 
-        Uri uri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4");
+        String url = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4";
+        Timber.d("url - " + url);
+        Uri uri = Uri.parse(url);
         MediaSource mediaSource = new ExtractorMediaSource(uri,
                 new DefaultDataSourceFactory(this, "BakingApp"),
                 new DefaultExtractorsFactory(),
