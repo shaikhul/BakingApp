@@ -36,7 +36,7 @@ public class JsonUtilsTest {
 
         Ingredient ingredient = new Ingredient(1, "CUP", "Graham Cracker crumbs");
         String ingredient_json = gson.toJson(ingredient);
-        assertEquals("{\"quantity\":1,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}", ingredient_json);
+        assertEquals("{\"quantity\":1.0,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}", ingredient_json);
 
         Recipe recipe = new Recipe(1, "Nutella Pie", 8, "");
         List<RecipeStep> steps = new ArrayList<>();
@@ -48,7 +48,7 @@ public class JsonUtilsTest {
         recipe.setIngredients(ingredients);
 
         String recipe_json = gson.toJson(recipe);
-        assertEquals("{\"id\":1,\"name\":\"Nutella Pie\",\"ingredients\":[{\"quantity\":1,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}],\"steps\":[{\"id\":1,\"shortDescription\":\"Recipe Introduction\",\"description\":\"Recipe Introduction\",\"videoURL\":\"foobar.com\",\"thumbnailURL\":\"\"}],\"servings\":8,\"image\":\"\"}", recipe_json);
+        assertEquals("{\"id\":1,\"name\":\"Nutella Pie\",\"ingredients\":[{\"quantity\":1.0,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}],\"steps\":[{\"id\":1,\"shortDescription\":\"Recipe Introduction\",\"description\":\"Recipe Introduction\",\"videoURL\":\"foobar.com\",\"thumbnailURL\":\"\"}],\"servings\":8,\"image\":\"\"}", recipe_json);
 
         Recipe recipe_from_json = gson.fromJson(recipe_json, Recipe.class);
         assertEquals(recipe.getId(), recipe_from_json.getId());
@@ -58,7 +58,7 @@ public class JsonUtilsTest {
         recipes.add(recipe);
 
         String recipes_json = gson.toJson(recipes);
-        assertEquals("[{\"id\":1,\"name\":\"Nutella Pie\",\"ingredients\":[{\"quantity\":1,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}],\"steps\":[{\"id\":1,\"shortDescription\":\"Recipe Introduction\",\"description\":\"Recipe Introduction\",\"videoURL\":\"foobar.com\",\"thumbnailURL\":\"\"}],\"servings\":8,\"image\":\"\"}]", recipes_json);
+        assertEquals("[{\"id\":1,\"name\":\"Nutella Pie\",\"ingredients\":[{\"quantity\":1.0,\"measure\":\"CUP\",\"ingredient\":\"Graham Cracker crumbs\"}],\"steps\":[{\"id\":1,\"shortDescription\":\"Recipe Introduction\",\"description\":\"Recipe Introduction\",\"videoURL\":\"foobar.com\",\"thumbnailURL\":\"\"}],\"servings\":8,\"image\":\"\"}]", recipes_json);
 
         List<Recipe> recipes_from_json = JsonUtils.deserializeRecipesJson(recipes_json);
         assertEquals(recipes.size(), recipes_from_json.size());

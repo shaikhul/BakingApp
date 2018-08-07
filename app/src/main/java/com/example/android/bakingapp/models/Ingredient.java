@@ -1,7 +1,7 @@
 package com.example.android.bakingapp.models;
 
 public class Ingredient {
-    int quantity;
+    float quantity;
     String measure;
     String ingredient;
 
@@ -14,11 +14,11 @@ public class Ingredient {
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
